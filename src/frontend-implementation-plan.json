@@ -1,22 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix Landing page Admin Portal button to navigate to external Admin Portal URL",
+  "title": "Remove landing page tagline and Admin Portal card",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Change the Landing page \"Access Admin Portal\" button to perform a full-page navigation to the external Admin Portal URL in the same tab, while keeping Customer Portal navigation unchanged.",
+      "summary": "Update LandingPage to remove the marketing tagline paragraph and the entire Admin Portal card, and re-center remaining content into a single-card layout.",
       "acceptanceCriteria": [
-        "On the landing page, clicking \"Access Admin Portal\" performs a full page navigation to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ in the same tab.",
-        "The app does not navigate to /admin/signin when \"Access Admin Portal\" is clicked.",
-        "Customer Portal navigation (\"Access Customer Portal\" -> /customer/signin) continues to work as before.",
-        "Works on mobile browsers as well as desktop browsers."
+        "The landing page no longer renders the paragraph text \"Streamline your financial operations with our comprehensive management platform\".",
+        "The landing page no longer renders an \"Admin Portal\" card or an \"Access Admin Portal\" button.",
+        "The landing page still renders without layout breakage; remaining content is centered and looks intentional (e.g., the grid is adjusted to a single card layout).",
+        "No unused imports or dead code remain in LandingPage.tsx (e.g., admin icon import/click handler removed if no longer used)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Update the \"Access Admin Portal\" Button click handler to use a full page same-tab navigation to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (e.g., window.location.assign/window.location.href), instead of TanStack Router navigation to \"/admin/signin\". Keep the \"Access Customer Portal\" button using internal navigation to \"/customer/signin\". Use the existing shadcn-ui Button component for the UI element; verify the component's usage instructions before implementing."
+          "description": "Remove the marketing tagline <p> block, delete the entire Admin Portal <Card> (including icon/title/description/button), and remove related dead code (e.g., Building2 import and handleAdminPortalClick). Adjust the container/grid classes so the remaining Customer Portal card is centered and uses a single-card layout (e.g., remove md:grid-cols-2 and reduce max width accordingly) while continuing to compose existing shadcn/ui Card/Button components without editing files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
         }
       ]
     }

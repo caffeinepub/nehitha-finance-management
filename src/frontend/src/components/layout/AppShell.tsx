@@ -13,10 +13,10 @@ export default function AppShell({ children }: AppShellProps) {
       <footer className="border-t border-border mt-auto py-6">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
           <p>
-            © {new Date().getFullYear()} Nehitha Finance Management. Built with ❤️ using{' '}
+            © {new Date().getFullYear()} Nehitha Thandal Management. Built with ❤️ using{' '}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                window.location.hostname || 'nehitha-finance'
+                window.location.hostname || 'nehitha-thandal'
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -30,4 +30,3 @@ export default function AppShell({ children }: AppShellProps) {
     </div>
   );
 }
-

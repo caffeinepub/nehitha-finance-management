@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-landing-page-so-that-clicking-the-access-admin-portal-button-navigates-the-user-to-the-external-url-https-nehitha-thandal-managementtool-0c2-caffeine-xyz-full-page-navigation-in-the-same-tab-instead-of-routing-to-the-internal-admin-signin-route",
-      "featureTitle": "Update the Landing page so that clicking the \"Access Admin Portal\" button navigates the user to the external URL https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (full page navigation in the same tab), instead of routing to the internal \"/admin/signin\" route.",
+      "featureId": "feature-update-the-landing-page-frontend-src-pages-landingpage-tsx-to-remove-the-ui-elements-shown-in-the-provided-screenshot-remove-the-marketing-tagline-text-streamline-your-financial-operations-with-our-comprehensive-management-platform-and-remove-the-entire-admin-portal-card-icon-title-description-and-access-admin-portal-button-link",
+      "featureTitle": "Update the landing page (frontend/src/pages/LandingPage.tsx) to remove the UI elements shown in the provided screenshot: remove the marketing tagline text \"Streamline your financial operations with our comprehensive management platform\" and remove the entire \"Admin Portal\" card (icon, title, description, and \"Access Admin Portal\" button/link).",
       "files": [
         "frontend/src/pages/LandingPage.tsx"
       ],

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, Outlet, useLocation } from '@tanstack/react-router';
-import { LogOut, UserPlus, LayoutDashboard, AlertCircle, Key } from 'lucide-react';
+import { LogOut, UserPlus, LayoutDashboard, AlertCircle, Key, Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { clearAdminSession, isAdminSessionActive, getAdminEmail } from '../../state/session';
@@ -200,6 +200,14 @@ export default function AdminLayout() {
               <UserPlus className="w-4 h-4 mr-2" />
               Add Customer
             </Button>
+            <Button
+              variant={isActive('/admin/loans') ? 'default' : 'ghost'}
+              className="w-full justify-start"
+              onClick={() => navigate({ to: '/admin/loans' })}
+            >
+              <Wallet className="w-4 h-4 mr-2" />
+              Loans
+            </Button>
           </nav>
         </aside>
 
@@ -213,10 +221,10 @@ export default function AdminLayout() {
       <footer className="border-t border-border py-6">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
           <p>
-            © {new Date().getFullYear()} Nehitha Finance Management. Built with ❤️ using{' '}
+            © {new Date().getFullYear()} Nehitha Thandal Management. Built with ❤️ using{' '}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                window.location.hostname || 'nehitha-finance'
+                window.location.hostname || 'nehitha-thandal'
               )}`}
               target="_blank"
               rel="noopener noreferrer"

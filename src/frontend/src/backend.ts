@@ -89,6 +89,28 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Loan {
+    id: string;
+    status: LoanStatus;
+    principalRemaining: number;
+    totalInterest: number;
+    termMonths: bigint;
+    paidEmis: bigint;
+    interestRate: number;
+    emiAmount: number;
+    balanceDue: number;
+    customerId: string;
+    amount: number;
+    emiSchedule: Array<EMI>;
+    startDate: bigint;
+}
+export interface EMI {
+    balanceAfterPayment: number;
+    paid: boolean;
+    dueDate: bigint;
+    paidDate?: bigint;
+    amount: number;
+}
 export interface Customer {
     pan: string;
     referral: string;
@@ -101,6 +123,11 @@ export interface Customer {
 export interface UserProfile {
     name: string;
 }
+export enum LoanStatus {
+    closed = "closed",
+    active = "active",
+    delinquent = "delinquent"
+}
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -110,16 +137,24 @@ export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addCustomer(name: string, mobile: string, aadhar: string, pan: string, referral: string, address: string, remarks: string): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    closeLoan(loanId: string): Promise<void>;
+    createLoan(customerId: string, amount: number, interestRate: number, termMonths: bigint): Promise<string>;
     getAllCustomers(): Promise<Array<Customer>>;
+    getBalanceDue(loanId: string): Promise<number>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getCustomer(name: string): Promise<Customer | null>;
+    getLoan(loanId: string): Promise<Loan | null>;
+    getLoanStatus(loanId: string): Promise<LoanStatus>;
+    getLoansForCustomer(customerId: string): Promise<Array<Loan>>;
+    getRemainingEmis(loanId: string): Promise<bigint>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    recordPayment(loanId: string, paidDate: bigint): Promise<void>;
     requestCustomer(name: string, message: string): Promise<string>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
 }
-import type { Customer as _Customer, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { Customer as _Customer, EMI as _EMI, Loan as _Loan, LoanStatus as _LoanStatus, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -164,6 +199,34 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async closeLoan(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.closeLoan(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.closeLoan(arg0);
+            return result;
+        }
+    }
+    async createLoan(arg0: string, arg1: number, arg2: number, arg3: bigint): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createLoan(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createLoan(arg0, arg1, arg2, arg3);
+            return result;
+        }
+    }
     async getAllCustomers(): Promise<Array<Customer>> {
         if (this.processError) {
             try {
@@ -175,6 +238,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllCustomers();
+            return result;
+        }
+    }
+    async getBalanceDue(arg0: string): Promise<number> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getBalanceDue(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getBalanceDue(arg0);
             return result;
         }
     }
@@ -220,6 +297,62 @@ export class Backend implements backendInterface {
             return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getLoan(arg0: string): Promise<Loan | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getLoan(arg0);
+                return from_candid_opt_n7(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getLoan(arg0);
+            return from_candid_opt_n7(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getLoanStatus(arg0: string): Promise<LoanStatus> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getLoanStatus(arg0);
+                return from_candid_LoanStatus_n10(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getLoanStatus(arg0);
+            return from_candid_LoanStatus_n10(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getLoansForCustomer(arg0: string): Promise<Array<Loan>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getLoansForCustomer(arg0);
+                return from_candid_vec_n16(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getLoansForCustomer(arg0);
+            return from_candid_vec_n16(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getRemainingEmis(arg0: string): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getRemainingEmis(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getRemainingEmis(arg0);
+            return result;
+        }
+    }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
@@ -245,6 +378,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async recordPayment(arg0: string, arg1: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.recordPayment(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.recordPayment(arg0, arg1);
             return result;
         }
     }
@@ -277,14 +424,104 @@ export class Backend implements backendInterface {
         }
     }
 }
+function from_candid_EMI_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EMI): EMI {
+    return from_candid_record_n14(_uploadFile, _downloadFile, value);
+}
+function from_candid_LoanStatus_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _LoanStatus): LoanStatus {
+    return from_candid_variant_n11(_uploadFile, _downloadFile, value);
+}
+function from_candid_Loan_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Loan): Loan {
+    return from_candid_record_n9(_uploadFile, _downloadFile, value);
+}
 function from_candid_UserRole_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
     return from_candid_variant_n5(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+    return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Customer]): Customer | null {
     return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Loan]): Loan | null {
+    return value.length === 0 ? null : from_candid_Loan_n8(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_record_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    balanceAfterPayment: number;
+    paid: boolean;
+    dueDate: bigint;
+    paidDate: [] | [bigint];
+    amount: number;
+}): {
+    balanceAfterPayment: number;
+    paid: boolean;
+    dueDate: bigint;
+    paidDate?: bigint;
+    amount: number;
+} {
+    return {
+        balanceAfterPayment: value.balanceAfterPayment,
+        paid: value.paid,
+        dueDate: value.dueDate,
+        paidDate: record_opt_to_undefined(from_candid_opt_n15(_uploadFile, _downloadFile, value.paidDate)),
+        amount: value.amount
+    };
+}
+function from_candid_record_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: string;
+    status: _LoanStatus;
+    principalRemaining: number;
+    totalInterest: number;
+    termMonths: bigint;
+    paidEmis: bigint;
+    interestRate: number;
+    emiAmount: number;
+    balanceDue: number;
+    customerId: string;
+    amount: number;
+    emiSchedule: Array<_EMI>;
+    startDate: bigint;
+}): {
+    id: string;
+    status: LoanStatus;
+    principalRemaining: number;
+    totalInterest: number;
+    termMonths: bigint;
+    paidEmis: bigint;
+    interestRate: number;
+    emiAmount: number;
+    balanceDue: number;
+    customerId: string;
+    amount: number;
+    emiSchedule: Array<EMI>;
+    startDate: bigint;
+} {
+    return {
+        id: value.id,
+        status: from_candid_LoanStatus_n10(_uploadFile, _downloadFile, value.status),
+        principalRemaining: value.principalRemaining,
+        totalInterest: value.totalInterest,
+        termMonths: value.termMonths,
+        paidEmis: value.paidEmis,
+        interestRate: value.interestRate,
+        emiAmount: value.emiAmount,
+        balanceDue: value.balanceDue,
+        customerId: value.customerId,
+        amount: value.amount,
+        emiSchedule: from_candid_vec_n12(_uploadFile, _downloadFile, value.emiSchedule),
+        startDate: value.startDate
+    };
+}
+function from_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    closed: null;
+} | {
+    active: null;
+} | {
+    delinquent: null;
+}): LoanStatus {
+    return "closed" in value ? LoanStatus.closed : "active" in value ? LoanStatus.active : "delinquent" in value ? LoanStatus.delinquent : value;
 }
 function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     admin: null;
@@ -294,6 +531,12 @@ function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uin
     guest: null;
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
+}
+function from_candid_vec_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_EMI>): Array<EMI> {
+    return value.map((x)=>from_candid_EMI_n13(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Loan>): Array<Loan> {
+    return value.map((x)=>from_candid_Loan_n8(_uploadFile, _downloadFile, x));
 }
 function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n2(_uploadFile, _downloadFile, value);

@@ -2,25 +2,29 @@
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
   "summary": "New project",
-  "architectural_notes": [
-    "\"Access Admin Portal\" button must navigate/redirect to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ when clicked."
-  ],
-  "known_issues": [
-    "Clicking \"Access Admin Portal\" does not correctly navigate to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (navigation/redirect bug)."
-  ],
-  "isFixRequest": true,
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-landing-page-so-that-clicking-the-access-admin-portal-button-navigates-the-user-to-the-external-url-https-nehitha-thandal-managementtool-0c2-caffeine-xyz-full-page-navigation-in-the-same-tab-instead-of-routing-to-the-internal-admin-signin-route",
-      "title": "Update the Landing page so that clicking the \"Access Admin Portal\" button navigates the user to the external URL https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (full page navigation in the same tab), instead of routing to the internal \"/admin/signin\" route.",
+      "id": "feature-update-the-landing-page-frontend-src-pages-landingpage-tsx-to-remove-the-ui-elements-shown-in-the-provided-screenshot-remove-the-marketing-tagline-text-streamline-your-financial-operations-with-our-comprehensive-management-platform-and-remove-the-entire-admin-portal-card-icon-title-description-and-access-admin-portal-button-link",
+      "title": "Update the landing page (frontend/src/pages/LandingPage.tsx) to remove the UI elements shown in the provided screenshot: remove the marketing tagline text \"Streamline your financial operations with our comprehensive management platform\" and remove the entire \"Admin Portal\" card (icon, title, description, and \"Access Admin Portal\" button/link).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     }
   ],
-  "new_feature_requests": [],
-  "projectName": "Fix 'Access Admin Portal' button to navigate to external Admin Portal URL",
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Remove the UI elements shown in the provided screenshot",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Remove landing page elements shown in screenshot",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

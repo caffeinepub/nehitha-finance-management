@@ -1,14 +1,18 @@
 import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } from '@tanstack/react-router';
+import { AppErrorBoundary } from './components/errors/AppErrorBoundary';
 import LandingPage from './pages/LandingPage';
 import AdminSignInPage from './pages/admin/AdminSignInPage';
 import AdminLayout from './pages/admin/AdminLayout';
 import AddCustomerPage from './pages/admin/AddCustomerPage';
+import LoansPage from './pages/admin/LoansPage';
 import CustomerSignInPage from './pages/customer/CustomerSignInPage';
 import CustomerHomePage from './pages/customer/CustomerHomePage';
 import CustomerRequestPage from './pages/customer/CustomerRequestPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const rootRoute = createRootRoute({
-  component: () => <Outlet />
+  component: () => <Outlet />,
+  notFoundComponent: NotFoundPage
 });
 
 const indexRoute = createRoute({
@@ -34,7 +38,7 @@ const adminDashboardRoute = createRoute({
   path: '/',
   component: () => (
     <div className="flex items-center justify-center h-full">
-      <h2 className="text-3xl font-bold text-foreground">Nehitha Finance Management</h2>
+      <h2 className="text-3xl font-bold text-foreground">Nehitha Thandal Management</h2>
     </div>
   )
 });
@@ -43,6 +47,12 @@ const addCustomerRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/add-customer',
   component: AddCustomerPage
+});
+
+const loansRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/loans',
+  component: LoansPage
 });
 
 const customerSignInRoute = createRoute({
@@ -66,13 +76,16 @@ const customerRequestRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   indexRoute,
   adminSignInRoute,
-  adminRoute.addChildren([adminDashboardRoute, addCustomerRoute]),
+  adminRoute.addChildren([adminDashboardRoute, addCustomerRoute, loansRoute]),
   customerSignInRoute,
   customerRoute,
   customerRequestRoute
 ]);
 
-const router = createRouter({ routeTree });
+const router = createRouter({ 
+  routeTree,
+  defaultNotFoundComponent: NotFoundPage
+});
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -81,6 +94,9 @@ declare module '@tanstack/react-router' {
 }
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AppErrorBoundary>
+      <RouterProvider router={router} />
+    </AppErrorBoundary>
+  );
 }
-

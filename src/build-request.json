@@ -1,48 +1,39 @@
 {
   "kind": "build_request",
-  "title": "Fix 'Access Admin Portal' button to navigate to external Admin Portal URL",
+  "title": "Remove landing page elements shown in screenshot",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the Landing page so that clicking the \"Access Admin Portal\" button navigates the user to the external URL https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (full page navigation in the same tab), instead of routing to the internal \"/admin/signin\" route.",
+      "text": "Update the landing page (frontend/src/pages/LandingPage.tsx) to remove the UI elements shown in the provided screenshot: remove the marketing tagline text \"Streamline your financial operations with our comprehensive management platform\" and remove the entire \"Admin Portal\" card (icon, title, description, and \"Access Admin Portal\" button/link).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-1"
         ],
         "quotes": [
-          "Not required just fix navigation Once hit \"Access Admin Portal \" Navigate to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/"
+          "Remove  things which present in the screenshot"
         ]
       },
       "acceptanceCriteria": [
-        "On the landing page, clicking \"Access Admin Portal\" performs a full page navigation to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ in the same tab.",
-        "The app does not navigate to /admin/signin when \"Access Admin Portal\" is clicked.",
-        "Customer Portal navigation (\"Access Customer Portal\" -> /customer/signin) continues to work as before.",
-        "Works on mobile browsers as well as desktop browsers."
+        "The landing page no longer renders the paragraph text \"Streamline your financial operations with our comprehensive management platform\".",
+        "The landing page no longer renders an \"Admin Portal\" card or an \"Access Admin Portal\" button.",
+        "The landing page still renders without layout breakage; remaining content is centered and looks intentional (e.g., the grid is adjusted to a single card layout).",
+        "No unused imports or dead code remain in LandingPage.tsx (e.g., admin icon import/click handler removed if no longer used)."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths (listed in SYSTEM_CONTEXT.frontend.immutablePaths) must not be modified.",
-    "Keep backend as single-actor; no backend changes are required for this navigation fix."
+    "Use English for any user-facing text.",
+    "Do not edit files under frontend/src/components/ui (compose existing components instead).",
+    "Backend is single-actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Do not change any admin authentication/authorization behavior or backend access control logic.",
-    "Do not redesign the landing page UI beyond what is necessary to fix the Admin Portal navigation."
+    "Changing any admin/customer portal functionality beyond removing the landing-page entry points requested.",
+    "Modifying authentication/session logic or backend data structures."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

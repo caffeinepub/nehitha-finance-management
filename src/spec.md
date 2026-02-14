@@ -1,10 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the Landing page "Access Admin Portal" button so it navigates to the external Admin Portal URL instead of an internal route.
+**Goal:** Simplify the landing page by removing the marketing tagline and the Admin Portal entry card shown in the screenshot.
 
 **Planned changes:**
-- Update the Landing page "Access Admin Portal" button/link to perform a full-page navigation in the same tab to `https://nehitha-thandal-managementtool-0c2.caffeine.xyz/`.
-- Ensure the "Access Customer Portal" button continues to route to `/customer/signin` as it does today.
+- Update `frontend/src/pages/LandingPage.tsx` to remove the paragraph text: “Streamline your financial operations with our comprehensive management platform”.
+- Remove the entire “Admin Portal” card from the landing page (icon, title, description, and “Access Admin Portal” button/link).
+- Adjust layout so remaining landing-page content is centered and looks intentional after the removal (e.g., single-card layout).
+- Clean up any unused imports/handlers in `LandingPage.tsx` that were only used for the removed Admin Portal UI.
 
-**User-visible outcome:** On the landing page, tapping/clicking "Access Admin Portal" opens the external Admin Portal in the same browser tab (mobile and desktop), while "Access Customer Portal" still goes to the customer sign-in page.
+**User-visible outcome:** The landing page no longer shows the marketing tagline or any Admin Portal card/button, and the remaining content is neatly centered without layout issues.
