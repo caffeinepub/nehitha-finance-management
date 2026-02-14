@@ -1,0 +1,31 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T19:22:43.539Z",
+  "summary": "REQ-1 appears implemented: the Landing page \"Access Admin Portal\" button now performs a full-page navigation to the specified external URL in the same tab, and Customer Portal navigation still routes internally. However, additional unrelated frontend utility and metadata files were modified without being requested.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Unrequested modifications/additions to URL parameter utilities, including sessionStorage persistence helpers and hash parameter removal logic (and comments referencing admin tokens).",
+      "reason": "BuildRequest only asked to change LandingPage button navigation; no URL parameter/session persistence changes were requested and backend/auth behavior changes were explicitly a non-goal.",
+      "evidence": [
+        "frontend/src/utils/urlParams.ts"
+      ]
+    },
+    {
+      "description": "Updates to generated/summary metadata files that are not part of the requested navigation fix.",
+      "reason": "BuildRequest did not request changes to project metadata or frontend file summary documentation; these edits go beyond the specified requirement.",
+      "evidence": [
+        "frontend-file-summaries.txt",
+        "project_state.json"
+      ]
+    }
+  ],
+  "confidence": 0.7,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "project_state.json"
+  ]
+}

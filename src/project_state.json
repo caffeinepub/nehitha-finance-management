@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "New project",
+  "architectural_notes": [
+    "\"Access Admin Portal\" button must navigate/redirect to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ when clicked."
+  ],
+  "known_issues": [
+    "Clicking \"Access Admin Portal\" does not correctly navigate to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (navigation/redirect bug)."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-update-the-landing-page-so-that-clicking-the-access-admin-portal-button-navigates-the-user-to-the-external-url-https-nehitha-thandal-managementtool-0c2-caffeine-xyz-full-page-navigation-in-the-same-tab-instead-of-routing-to-the-internal-admin-signin-route",
+      "title": "Update the Landing page so that clicking the \"Access Admin Portal\" button navigates the user to the external URL https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (full page navigation in the same tab), instead of routing to the internal \"/admin/signin\" route.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [],
+  "projectName": "Fix 'Access Admin Portal' button to navigate to external Admin Portal URL",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix Landing page Admin Portal button to navigate to external Admin Portal URL",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Change the Landing page \"Access Admin Portal\" button to perform a full-page navigation to the external Admin Portal URL in the same tab, while keeping Customer Portal navigation unchanged.",
+      "acceptanceCriteria": [
+        "On the landing page, clicking \"Access Admin Portal\" performs a full page navigation to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ in the same tab.",
+        "The app does not navigate to /admin/signin when \"Access Admin Portal\" is clicked.",
+        "Customer Portal navigation (\"Access Customer Portal\" -> /customer/signin) continues to work as before.",
+        "Works on mobile browsers as well as desktop browsers."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Update the \"Access Admin Portal\" Button click handler to use a full page same-tab navigation to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (e.g., window.location.assign/window.location.href), instead of TanStack Router navigation to \"/admin/signin\". Keep the \"Access Customer Portal\" button using internal navigation to \"/customer/signin\". Use the existing shadcn-ui Button component for the UI element; verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

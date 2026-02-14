@@ -1,0 +1,24 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-landing-page-so-that-clicking-the-access-admin-portal-button-navigates-the-user-to-the-external-url-https-nehitha-thandal-managementtool-0c2-caffeine-xyz-full-page-navigation-in-the-same-tab-instead-of-routing-to-the-internal-admin-signin-route",
+      "featureTitle": "Update the Landing page so that clicking the \"Access Admin Portal\" button navigates the user to the external URL https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (full page navigation in the same tab), instead of routing to the internal \"/admin/signin\" route.",
+      "files": [
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

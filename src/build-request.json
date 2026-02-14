@@ -1,0 +1,48 @@
+{
+  "kind": "build_request",
+  "title": "Fix 'Access Admin Portal' button to navigate to external Admin Portal URL",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Update the Landing page so that clicking the \"Access Admin Portal\" button navigates the user to the external URL https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ (full page navigation in the same tab), instead of routing to the internal \"/admin/signin\" route.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Not required just fix navigation Once hit \"Access Admin Portal \" Navigate to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On the landing page, clicking \"Access Admin Portal\" performs a full page navigation to https://nehitha-thandal-managementtool-0c2.caffeine.xyz/ in the same tab.",
+        "The app does not navigate to /admin/signin when \"Access Admin Portal\" is clicked.",
+        "Customer Portal navigation (\"Access Customer Portal\" -> /customer/signin) continues to work as before.",
+        "Works on mobile browsers as well as desktop browsers."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths (listed in SYSTEM_CONTEXT.frontend.immutablePaths) must not be modified.",
+    "Keep backend as single-actor; no backend changes are required for this navigation fix."
+  ],
+  "nonGoals": [
+    "Do not change any admin authentication/authorization behavior or backend access control logic.",
+    "Do not redesign the landing page UI beyond what is necessary to fix the Admin Portal navigation."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}
