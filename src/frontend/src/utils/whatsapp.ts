@@ -4,9 +4,10 @@ export interface RequestDetails {
   name: string;
   mobile: string;
   address: string;
-  aadhar: string;
-  pan: string;
   remarks: string;
+  partTimeEmployment: string;
+  fullTimeEmployment: string;
+  loanReason: string;
 }
 
 export function formatRequestMessage(details: RequestDetails): string {
@@ -16,8 +17,9 @@ _New Customer Request_
 *Name:* ${details.name}
 *Mobile Number:* ${details.mobile}
 *Address:* ${details.address}
-*Aadhar Number:* ${details.aadhar || 'Not provided'}
-*PAN Number:* ${details.pan || 'Not provided'}
+*Part Time Employment:* ${details.partTimeEmployment}
+*Full Time Employment:* ${details.fullTimeEmployment}
+*Loan Reason:* ${details.loanReason}
 *Remarks:* ${details.remarks || 'None'}
 
 ---

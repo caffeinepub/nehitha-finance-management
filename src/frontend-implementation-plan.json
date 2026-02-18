@@ -1,56 +1,53 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Skip Customer Sign-In and Open Add Request from Landing",
+  "title": "Remove Aadhar and PAN fields from customer request form",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Change the Landing page Customer Portal button to go directly to the customer Add Request form.",
+      "summary": "Remove the Aadhar number input field from the customer request form",
       "acceptanceCriteria": [
-        "From route \"/\", clicking \"Access Customer Portal\" navigates to \"/customer/request\".",
-        "The intermediate customer sign-in screen is not shown during this flow."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Update the \"Access Customer Portal\" button navigation target from \"/customer/signin\" to \"/customer/request\"."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Remove the customer sign-in route and update any navigation/redirects that previously sent users to \"/customer/signin\".",
-      "acceptanceCriteria": [
-        "The route \"/customer/signin\" is no longer registered in the router.",
-        "Any code paths that navigate to \"/customer/signin\" (e.g., customer session guard behavior) navigate to \"/customer/request\" instead.",
-        "Visiting \"/customer/signin\" in the browser no longer shows the Customer Sign In screen (it should result in Not Found or redirect to \"/customer/request\" per the updated routing)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Remove the \"/customer/signin\" route registration from the router and remove the unused import of CustomerSignInPage so the sign-in screen cannot be reached via routing."
-        },
-        {
-          "path": "frontend/src/pages/customer/CustomerHomePage.tsx",
-          "operation": "modify",
-          "description": "Update the customer session guard redirect to navigate to \"/customer/request\" instead of \"/customer/signin\" when no customer session is active."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Update the customer request success return action so it does not navigate to pages dependent on the removed sign-in flow.",
-      "acceptanceCriteria": [
-        "After submitting a request and seeing the success screen, the return button navigates to a valid page that does not depend on the removed customer sign-in route (e.g., \"/\" or \"/customer/request\").",
-        "No navigation from the customer request flow leads to \"/customer/signin\"."
+        "The Aadhar number field is no longer visible in the customer request form",
+        "Form validation no longer checks for Aadhar number",
+        "Form can be submitted without Aadhar number"
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/customer/CustomerRequestPage.tsx",
           "operation": "modify",
-          "description": "Change the success-screen primary action to navigate to a valid route not dependent on customer sign-in (e.g., \"/\"). Also update the form \"Cancel\" navigation to avoid \"/customer\" if it could trigger a sign-in redirect; ensure no navigation in this flow targets \"/customer/signin\"."
+          "description": "Remove the Aadhar number input field from the form JSX and remove the 'aadharNumber' field from the form state management and validation logic. Ensure the form can be submitted without this field while maintaining existing form layout and styling consistency."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Remove the PAN number input field from the customer request form",
+      "acceptanceCriteria": [
+        "The PAN number field is no longer visible in the customer request form",
+        "Form validation no longer checks for PAN number",
+        "Form can be submitted without PAN number"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/customer/CustomerRequestPage.tsx",
+          "operation": "modify",
+          "description": "Remove the PAN number input field from the form JSX and remove the 'panNumber' field from the form state management and validation logic. Ensure the form can be submitted without this field while maintaining existing form layout and styling consistency."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Update the WhatsApp message template to exclude Aadhar and PAN number fields",
+      "acceptanceCriteria": [
+        "WhatsApp messages generated from customer requests no longer include Aadhar number",
+        "WhatsApp messages generated from customer requests no longer include PAN number",
+        "Message formatting remains clean and properly structured"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/whatsapp.ts",
+          "operation": "modify",
+          "description": "Update the customer request WhatsApp message template to remove Aadhar and PAN number fields from the message body. Ensure the message formatting remains clean and properly structured without these fields."
         }
       ]
     }

@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-landing-page-so-that-clicking-the-access-customer-portal-button-navigates-directly-to-the-customer-add-request-form-page-instead-of-the-customer-sign-in-page",
-      "featureTitle": "Update the Landing page so that clicking the \"Access Customer Portal\" button navigates directly to the customer \"Add Request\" form page instead of the Customer Sign In page.",
+      "featureId": "feature-remove-the-aadhar-number-input-field-from-the-customer-request-form",
+      "featureTitle": "Remove the Aadhar number input field from the customer request form",
       "files": [
-        "frontend/src/pages/LandingPage.tsx"
+        "frontend/src/pages/customer/CustomerRequestPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -21,11 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-the-customer-sign-in-page-from-the-app-routing-and-ensure-any-existing-redirects-that-previously-went-to-customer-signin-instead-route-users-to-the-customer-request-page",
-      "featureTitle": "Remove the Customer Sign In page from the app routing and ensure any existing redirects that previously went to \"/customer/signin\" instead route users to the customer request page.",
+      "featureId": "feature-remove-the-pan-number-input-field-from-the-customer-request-form",
+      "featureTitle": "Remove the PAN number input field from the customer request form",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/customer/CustomerHomePage.tsx"
+        "frontend/src/pages/customer/CustomerRequestPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -41,10 +40,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-post-submit-success-screen-in-the-customer-request-flow-so-that-the-primary-return-action-does-not-send-users-to-a-page-that-requires-the-removed-sign-in-flow",
-      "featureTitle": "Update the post-submit success screen in the Customer Request flow so that the primary return action does not send users to a page that requires the removed sign-in flow.",
+      "featureId": "feature-update-the-whatsapp-message-template-to-exclude-aadhar-and-pan-number-fields",
+      "featureTitle": "Update the WhatsApp message template to exclude Aadhar and PAN number fields",
       "files": [
-        "frontend/src/pages/customer/CustomerRequestPage.tsx"
+        "frontend/src/utils/whatsapp.ts"
       ],
       "components": [
         "authorization@4.0.0",

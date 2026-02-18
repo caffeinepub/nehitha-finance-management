@@ -1,70 +1,72 @@
 {
   "kind": "build_request",
-  "title": "Skip Customer Sign-In and Open Add Request from Landing",
-  "projectName": "Nehitha Thandal Management",
+  "title": "Remove Aadhar and PAN fields from customer request form",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the Landing page so that clicking the \"Access Customer Portal\" button navigates directly to the customer \"Add Request\" form page instead of the Customer Sign In page.",
+      "text": "Remove the Aadhar number input field from the customer request form",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-remove-fields"
         ],
         "quotes": [
-          "Remove this page \nOnce click Access Customer Portal\nShould open add request page"
+          "remove \nAadhar and pan fields"
         ]
       },
       "acceptanceCriteria": [
-        "From route \"/\", clicking \"Access Customer Portal\" navigates to \"/customer/request\".",
-        "The intermediate customer sign-in screen is not shown during this flow."
+        "The Aadhar number field is no longer visible in the customer request form",
+        "Form validation no longer checks for Aadhar number",
+        "Form can be submitted without Aadhar number"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Remove the Customer Sign In page from the app routing and ensure any existing redirects that previously went to \"/customer/signin\" instead route users to the customer request page.",
+      "text": "Remove the PAN number input field from the customer request form",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-remove-fields"
         ],
         "quotes": [
-          "Remove this page \nOnce click Access Customer Portal\nShould open add request page"
+          "remove \nAadhar and pan fields"
         ]
       },
       "acceptanceCriteria": [
-        "The route \"/customer/signin\" is no longer registered in the router.",
-        "Any code paths that navigate to \"/customer/signin\" (e.g., customer session guard behavior) navigate to \"/customer/request\" instead.",
-        "Visiting \"/customer/signin\" in the browser no longer shows the Customer Sign In screen (it should result in Not Found or redirect to \"/customer/request\" per the updated routing)."
+        "The PAN number field is no longer visible in the customer request form",
+        "Form validation no longer checks for PAN number",
+        "Form can be submitted without PAN number"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Update the post-submit success screen in the Customer Request flow so that the primary return action does not send users to a page that requires the removed sign-in flow.",
+      "text": "Update the WhatsApp message template to exclude Aadhar and PAN number fields",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-remove-fields"
         ],
         "quotes": [
-          "Should open add request page"
+          "remove \nAadhar and pan fields"
         ]
       },
       "acceptanceCriteria": [
-        "After submitting a request and seeing the success screen, the return button navigates to a valid page that does not depend on the removed customer sign-in route (e.g., \"/\" or \"/customer/request\").",
-        "No navigation from the customer request flow leads to \"/customer/signin\"."
+        "WhatsApp messages generated from customer requests no longer include Aadhar number",
+        "WhatsApp messages generated from customer requests no longer include PAN number",
+        "Message formatting remains clean and properly structured"
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
-    "Keep all user-facing text in English."
+    "Do not modify the backend schema or data structures",
+    "Maintain the existing form layout and styling consistency",
+    "Preserve the mandatory consent checkbox functionality"
   ],
   "nonGoals": [
-    "Changing backend Motoko logic or adding new backend endpoints.",
-    "Adding new authentication providers or login methods.",
-    "Redesigning the admin area or admin routes."
+    "Adding new fields to replace the removed ones",
+    "Modifying other form fields or validation rules",
+    "Changing the WhatsApp integration mechanism"
   ],
   "imageRequirements": {
     "required": [],

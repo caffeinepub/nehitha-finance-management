@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import AppShell from '../../components/layout/AppShell';
@@ -16,10 +17,12 @@ export default function CustomerRequestPage() {
     name: '',
     mobile: '',
     address: '',
-    aadhar: '',
-    pan: '',
-    remarks: ''
+    remarks: '',
+    partTimeEmployment: '',
+    fullTimeEmployment: '',
+    loanReason: ''
   });
+  const [consentChecked, setConsentChecked] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -38,6 +41,22 @@ export default function CustomerRequestPage() {
 
     if (!formData.address.trim()) {
       newErrors.address = 'Address is required';
+    }
+
+    if (!formData.partTimeEmployment.trim()) {
+      newErrors.partTimeEmployment = 'Part Time Employment is required';
+    }
+
+    if (!formData.fullTimeEmployment.trim()) {
+      newErrors.fullTimeEmployment = 'Full Time Employment is required';
+    }
+
+    if (!formData.loanReason.trim()) {
+      newErrors.loanReason = 'Loan reason is required';
+    }
+
+    if (!consentChecked) {
+      newErrors.consent = 'You must agree to share your details';
     }
 
     setErrors(newErrors);
@@ -102,6 +121,14 @@ export default function CustomerRequestPage() {
     );
   }
 
+  const isFormValid = consentChecked && 
+    formData.name.trim() && 
+    formData.mobile.trim() && 
+    formData.address.trim() &&
+    formData.partTimeEmployment.trim() &&
+    formData.fullTimeEmployment.trim() &&
+    formData.loanReason.trim();
+
   return (
     <AppShell>
       <div className="min-h-screen bg-background py-12 px-4">
@@ -156,23 +183,43 @@ export default function CustomerRequestPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="aadhar">Aadhar Number</Label>
+                  <Label htmlFor="partTimeEmployment">Part Time Employment *</Label>
                   <Input
-                    id="aadhar"
-                    value={formData.aadhar}
-                    onChange={(e) => handleChange('aadhar', e.target.value)}
-                    placeholder="Enter your Aadhar number (optional)"
+                    id="partTimeEmployment"
+                    value={formData.partTimeEmployment}
+                    onChange={(e) => handleChange('partTimeEmployment', e.target.value)}
+                    placeholder="Enter your part time employment details"
                   />
+                  {errors.partTimeEmployment && (
+                    <p className="text-sm text-destructive">{errors.partTimeEmployment}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="pan">PAN Number</Label>
+                  <Label htmlFor="fullTimeEmployment">Full Time Employment *</Label>
                   <Input
-                    id="pan"
-                    value={formData.pan}
-                    onChange={(e) => handleChange('pan', e.target.value)}
-                    placeholder="Enter your PAN number (optional)"
+                    id="fullTimeEmployment"
+                    value={formData.fullTimeEmployment}
+                    onChange={(e) => handleChange('fullTimeEmployment', e.target.value)}
+                    placeholder="Enter your full time employment details"
                   />
+                  {errors.fullTimeEmployment && (
+                    <p className="text-sm text-destructive">{errors.fullTimeEmployment}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="loanReason">Loan Reason *</Label>
+                  <Textarea
+                    id="loanReason"
+                    value={formData.loanReason}
+                    onChange={(e) => handleChange('loanReason', e.target.value)}
+                    placeholder="Enter the reason for requesting the loan"
+                    rows={3}
+                  />
+                  {errors.loanReason && (
+                    <p className="text-sm text-destructive">{errors.loanReason}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -186,6 +233,33 @@ export default function CustomerRequestPage() {
                   />
                 </div>
 
+                <div className="space-y-2">
+                  <div className="flex items-start space-x-3 rounded-md border border-border p-4 bg-muted/30">
+                    <Checkbox
+                      id="consent"
+                      checked={consentChecked}
+                      onCheckedChange={(checked) => {
+                        setConsentChecked(checked === true);
+                        if (errors.consent) {
+                          setErrors(prev => ({ ...prev, consent: '' }));
+                        }
+                      }}
+                      className="mt-0.5"
+                    />
+                    <div className="flex-1">
+                      <Label
+                        htmlFor="consent"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
+                        I agree to share my details for contact purpose
+                      </Label>
+                    </div>
+                  </div>
+                  {errors.consent && (
+                    <p className="text-sm text-destructive">{errors.consent}</p>
+                  )}
+                </div>
+
                 <div className="flex gap-4">
                   <Button
                     type="button"
@@ -195,7 +269,11 @@ export default function CustomerRequestPage() {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" className="flex-1">
+                  <Button 
+                    type="submit" 
+                    className="flex-1"
+                    disabled={!isFormValid}
+                  >
                     <Send className="w-4 h-4 mr-2" />
                     Submit Request
                   </Button>

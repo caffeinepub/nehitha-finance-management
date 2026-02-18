@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T14:13:22.659Z",
+  "generatedAt": "2026-02-18T15:25:34.578Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,53 +12,46 @@
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Update the Landing page so that clicking the \"Access Customer Portal\" button navigates directly to the customer \"Add Request\" form page instead of the Customer Sign In page.",
+        "summary": "Remove the Aadhar number input field from the customer request form",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/pages/customer/CustomerRequestPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/pages/customer/CustomerRequestPage.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Remove the Customer Sign In page from the app routing and ensure any existing redirects that previously went to \"/customer/signin\" instead route users to the customer request page.",
+        "summary": "Remove the PAN number input field from the customer request form",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/pages/customer/CustomerHomePage.tsx"
+          "frontend/src/pages/customer/CustomerRequestPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/pages/customer/CustomerHomePage.tsx"
+          "frontend/src/pages/customer/CustomerRequestPage.tsx"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Update the post-submit success screen in the Customer Request flow so that the primary return action does not send users to a page that requires the removed sign-in flow.",
+        "summary": "Update the WhatsApp message template to exclude Aadhar and PAN number fields",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/customer/CustomerRequestPage.tsx"
+          "frontend/src/utils/whatsapp.ts"
         ],
         "matchedFiles": [
-          "frontend/src/pages/customer/CustomerRequestPage.tsx"
+          "frontend/src/utils/whatsapp.ts"
         ]
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/config.ts",
-    "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/customer/CustomerHomePage.tsx",
     "frontend/src/pages/customer/CustomerRequestPage.tsx",
-    "frontend/src/pages/customer/CustomerSignInPage.tsx",
+    "frontend/src/utils/whatsapp.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
