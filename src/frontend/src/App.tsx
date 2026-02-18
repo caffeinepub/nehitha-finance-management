@@ -5,7 +5,6 @@ import AdminSignInPage from './pages/admin/AdminSignInPage';
 import AdminLayout from './pages/admin/AdminLayout';
 import AddCustomerPage from './pages/admin/AddCustomerPage';
 import LoansPage from './pages/admin/LoansPage';
-import CustomerSignInPage from './pages/customer/CustomerSignInPage';
 import CustomerHomePage from './pages/customer/CustomerHomePage';
 import CustomerRequestPage from './pages/customer/CustomerRequestPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -55,12 +54,6 @@ const loansRoute = createRoute({
   component: LoansPage
 });
 
-const customerSignInRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/customer/signin',
-  component: CustomerSignInPage
-});
-
 const customerRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/customer',
@@ -77,7 +70,6 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   adminSignInRoute,
   adminRoute.addChildren([adminDashboardRoute, addCustomerRoute, loansRoute]),
-  customerSignInRoute,
   customerRoute,
   customerRequestRoute
 ]);

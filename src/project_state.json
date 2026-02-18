@@ -4,13 +4,29 @@
   "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-update-the-landing-page-frontend-src-pages-landingpage-tsx-to-remove-the-ui-elements-shown-in-the-provided-screenshot-remove-the-marketing-tagline-text-streamline-your-financial-operations-with-our-comprehensive-management-platform-and-remove-the-entire-admin-portal-card-icon-title-description-and-access-admin-portal-button-link",
-      "title": "Update the landing page (frontend/src/pages/LandingPage.tsx) to remove the UI elements shown in the provided screenshot: remove the marketing tagline text \"Streamline your financial operations with our comprehensive management platform\" and remove the entire \"Admin Portal\" card (icon, title, description, and \"Access Admin Portal\" button/link).",
+      "id": "feature-update-the-landing-page-so-that-clicking-the-access-customer-portal-button-navigates-directly-to-the-customer-add-request-form-page-instead-of-the-customer-sign-in-page",
+      "title": "Update the Landing page so that clicking the \"Access Customer Portal\" button navigates directly to the customer \"Add Request\" form page instead of the Customer Sign In page.",
       "reqIds": [
         "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-customer-sign-in-page-from-the-app-routing-and-ensure-any-existing-redirects-that-previously-went-to-customer-signin-instead-route-users-to-the-customer-request-page",
+      "title": "Remove the Customer Sign In page from the app routing and ensure any existing redirects that previously went to \"/customer/signin\" instead route users to the customer request page.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-post-submit-success-screen-in-the-customer-request-flow-so-that-the-primary-return-action-does-not-send-users-to-a-page-that-requires-the-removed-sign-in-flow",
+      "title": "Update the post-submit success screen in the Customer Request flow so that the primary return action does not send users to a page that requires the removed sign-in flow.",
+      "reqIds": [
+        "REQ-3"
       ],
       "version": 1
     }
@@ -18,13 +34,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Remove the UI elements shown in the provided screenshot",
+      "summary": "Remove the intermediate page; clicking 'Access Customer Portal' should navigate directly to the 'Add Request' page",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Remove landing page elements shown in screenshot",
+  "projectName": "Nehitha Thandal Management",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

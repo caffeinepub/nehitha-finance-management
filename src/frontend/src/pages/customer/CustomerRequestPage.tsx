@@ -90,7 +90,7 @@ export default function CustomerRequestPage() {
                 </AlertDescription>
               </Alert>
               <Button 
-                onClick={() => navigate({ to: '/customer' })} 
+                onClick={() => navigate({ to: '/' })} 
                 className="w-full"
               >
                 Back to Home
@@ -190,7 +190,7 @@ export default function CustomerRequestPage() {
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => navigate({ to: '/customer' })}
+                    onClick={() => navigate({ to: '/' })}
                     className="flex-1"
                   >
                     Cancel

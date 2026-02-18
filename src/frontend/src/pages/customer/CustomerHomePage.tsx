@@ -14,7 +14,7 @@ export default function CustomerHomePage() {
 
   useEffect(() => {
     if (!isCustomerSessionActive()) {
-      navigate({ to: '/customer/signin' });
+      navigate({ to: '/customer/request' });
     }
   }, [navigate]);
 

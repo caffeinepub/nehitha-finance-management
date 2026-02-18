@@ -29,7 +29,7 @@ export default function LandingPage() {
             </CardHeader>
             <CardContent>
               <Button
-                onClick={() => navigate({ to: '/customer/signin' })}
+                onClick={() => navigate({ to: '/customer/request' })}
                 className="w-full bg-accent hover:bg-accent/90"
                 size="lg"
               >

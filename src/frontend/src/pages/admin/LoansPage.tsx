@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircle, Loader2, CheckCircle, XCircle, MessageSquare } from 'lucide-react';
 import { buildCustomerWhatsAppLink, formatLoanClosureMessage, formatEMIPaidMessage, getOrdinalSuffix } from '../../utils/whatsapp';
-import type { Loan, LoanStatus } from '../../backend';
+import type { Loan, LoanStatus } from '../../types/loan';
 
 export default function LoansPage() {
   const { data: customers = [], isLoading: customersLoading } = useGetAllCustomers();

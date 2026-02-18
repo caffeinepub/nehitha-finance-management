@@ -13,76 +13,12 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
-export const Customer = IDL.Record({
-  'pan' : IDL.Text,
-  'referral' : IDL.Text,
-  'name' : IDL.Text,
-  'address' : IDL.Text,
-  'mobile' : IDL.Text,
-  'aadhar' : IDL.Text,
-  'remarks' : IDL.Text,
-});
-export const UserProfile = IDL.Record({ 'name' : IDL.Text });
-export const LoanStatus = IDL.Variant({
-  'closed' : IDL.Null,
-  'active' : IDL.Null,
-  'delinquent' : IDL.Null,
-});
-export const EMI = IDL.Record({
-  'balanceAfterPayment' : IDL.Float64,
-  'paid' : IDL.Bool,
-  'dueDate' : IDL.Int,
-  'paidDate' : IDL.Opt(IDL.Int),
-  'amount' : IDL.Float64,
-});
-export const Loan = IDL.Record({
-  'id' : IDL.Text,
-  'status' : LoanStatus,
-  'principalRemaining' : IDL.Float64,
-  'totalInterest' : IDL.Float64,
-  'termMonths' : IDL.Int,
-  'paidEmis' : IDL.Int,
-  'interestRate' : IDL.Float64,
-  'emiAmount' : IDL.Float64,
-  'balanceDue' : IDL.Float64,
-  'customerId' : IDL.Text,
-  'amount' : IDL.Float64,
-  'emiSchedule' : IDL.Vec(EMI),
-  'startDate' : IDL.Int,
-});
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
-  'addCustomer' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
-      [],
-      [],
-    ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-  'closeLoan' : IDL.Func([IDL.Text], [], []),
-  'createLoan' : IDL.Func(
-      [IDL.Text, IDL.Float64, IDL.Float64, IDL.Int],
-      [IDL.Text],
-      [],
-    ),
-  'getAllCustomers' : IDL.Func([], [IDL.Vec(Customer)], ['query']),
-  'getBalanceDue' : IDL.Func([IDL.Text], [IDL.Float64], ['query']),
-  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-  'getCustomer' : IDL.Func([IDL.Text], [IDL.Opt(Customer)], ['query']),
-  'getLoan' : IDL.Func([IDL.Text], [IDL.Opt(Loan)], ['query']),
-  'getLoanStatus' : IDL.Func([IDL.Text], [LoanStatus], ['query']),
-  'getLoansForCustomer' : IDL.Func([IDL.Text], [IDL.Vec(Loan)], ['query']),
-  'getRemainingEmis' : IDL.Func([IDL.Text], [IDL.Int], ['query']),
-  'getUserProfile' : IDL.Func(
-      [IDL.Principal],
-      [IDL.Opt(UserProfile)],
-      ['query'],
-    ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-  'recordPayment' : IDL.Func([IDL.Text, IDL.Int], [], []),
-  'requestCustomer' : IDL.Func([IDL.Text, IDL.Text], [IDL.Text], []),
-  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
 });
 
 export const idlInitArgs = [];
@@ -93,76 +29,12 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
-  const Customer = IDL.Record({
-    'pan' : IDL.Text,
-    'referral' : IDL.Text,
-    'name' : IDL.Text,
-    'address' : IDL.Text,
-    'mobile' : IDL.Text,
-    'aadhar' : IDL.Text,
-    'remarks' : IDL.Text,
-  });
-  const UserProfile = IDL.Record({ 'name' : IDL.Text });
-  const LoanStatus = IDL.Variant({
-    'closed' : IDL.Null,
-    'active' : IDL.Null,
-    'delinquent' : IDL.Null,
-  });
-  const EMI = IDL.Record({
-    'balanceAfterPayment' : IDL.Float64,
-    'paid' : IDL.Bool,
-    'dueDate' : IDL.Int,
-    'paidDate' : IDL.Opt(IDL.Int),
-    'amount' : IDL.Float64,
-  });
-  const Loan = IDL.Record({
-    'id' : IDL.Text,
-    'status' : LoanStatus,
-    'principalRemaining' : IDL.Float64,
-    'totalInterest' : IDL.Float64,
-    'termMonths' : IDL.Int,
-    'paidEmis' : IDL.Int,
-    'interestRate' : IDL.Float64,
-    'emiAmount' : IDL.Float64,
-    'balanceDue' : IDL.Float64,
-    'customerId' : IDL.Text,
-    'amount' : IDL.Float64,
-    'emiSchedule' : IDL.Vec(EMI),
-    'startDate' : IDL.Int,
-  });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
-    'addCustomer' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
-        [],
-        [],
-      ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
-    'closeLoan' : IDL.Func([IDL.Text], [], []),
-    'createLoan' : IDL.Func(
-        [IDL.Text, IDL.Float64, IDL.Float64, IDL.Int],
-        [IDL.Text],
-        [],
-      ),
-    'getAllCustomers' : IDL.Func([], [IDL.Vec(Customer)], ['query']),
-    'getBalanceDue' : IDL.Func([IDL.Text], [IDL.Float64], ['query']),
-    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-    'getCustomer' : IDL.Func([IDL.Text], [IDL.Opt(Customer)], ['query']),
-    'getLoan' : IDL.Func([IDL.Text], [IDL.Opt(Loan)], ['query']),
-    'getLoanStatus' : IDL.Func([IDL.Text], [LoanStatus], ['query']),
-    'getLoansForCustomer' : IDL.Func([IDL.Text], [IDL.Vec(Loan)], ['query']),
-    'getRemainingEmis' : IDL.Func([IDL.Text], [IDL.Int], ['query']),
-    'getUserProfile' : IDL.Func(
-        [IDL.Principal],
-        [IDL.Opt(UserProfile)],
-        ['query'],
-      ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-    'recordPayment' : IDL.Func([IDL.Text, IDL.Int], [], []),
-    'requestCustomer' : IDL.Func([IDL.Text, IDL.Text], [IDL.Text], []),
-    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   });
 };
 

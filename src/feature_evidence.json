@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-landing-page-frontend-src-pages-landingpage-tsx-to-remove-the-ui-elements-shown-in-the-provided-screenshot-remove-the-marketing-tagline-text-streamline-your-financial-operations-with-our-comprehensive-management-platform-and-remove-the-entire-admin-portal-card-icon-title-description-and-access-admin-portal-button-link",
-      "featureTitle": "Update the landing page (frontend/src/pages/LandingPage.tsx) to remove the UI elements shown in the provided screenshot: remove the marketing tagline text \"Streamline your financial operations with our comprehensive management platform\" and remove the entire \"Admin Portal\" card (icon, title, description, and \"Access Admin Portal\" button/link).",
+      "featureId": "feature-update-the-landing-page-so-that-clicking-the-access-customer-portal-button-navigates-directly-to-the-customer-add-request-form-page-instead-of-the-customer-sign-in-page",
+      "featureTitle": "Update the Landing page so that clicking the \"Access Customer Portal\" button navigates directly to the customer \"Add Request\" form page instead of the Customer Sign In page.",
       "files": [
         "frontend/src/pages/LandingPage.tsx"
       ],
@@ -17,6 +17,45 @@
       ],
       "testIds": [
         "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-customer-sign-in-page-from-the-app-routing-and-ensure-any-existing-redirects-that-previously-went-to-customer-signin-instead-route-users-to-the-customer-request-page",
+      "featureTitle": "Remove the Customer Sign In page from the app routing and ensure any existing redirects that previously went to \"/customer/signin\" instead route users to the customer request page.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/customer/CustomerHomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-post-submit-success-screen-in-the-customer-request-flow-so-that-the-primary-return-action-does-not-send-users-to-a-page-that-requires-the-removed-sign-in-flow",
+      "featureTitle": "Update the post-submit success screen in the Customer Request flow so that the primary return action does not send users to a page that requires the removed sign-in flow.",
+      "files": [
+        "frontend/src/pages/customer/CustomerRequestPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
       ],
       "confidence": "high"
     }

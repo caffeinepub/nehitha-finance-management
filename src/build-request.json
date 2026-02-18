@@ -1,36 +1,70 @@
 {
   "kind": "build_request",
-  "title": "Remove landing page elements shown in screenshot",
+  "title": "Skip Customer Sign-In and Open Add Request from Landing",
+  "projectName": "Nehitha Thandal Management",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the landing page (frontend/src/pages/LandingPage.tsx) to remove the UI elements shown in the provided screenshot: remove the marketing tagline text \"Streamline your financial operations with our comprehensive management platform\" and remove the entire \"Admin Portal\" card (icon, title, description, and \"Access Admin Portal\" button/link).",
+      "text": "Update the Landing page so that clicking the \"Access Customer Portal\" button navigates directly to the customer \"Add Request\" form page instead of the Customer Sign In page.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Remove  things which present in the screenshot"
+          "Remove this page \nOnce click Access Customer Portal\nShould open add request page"
         ]
       },
       "acceptanceCriteria": [
-        "The landing page no longer renders the paragraph text \"Streamline your financial operations with our comprehensive management platform\".",
-        "The landing page no longer renders an \"Admin Portal\" card or an \"Access Admin Portal\" button.",
-        "The landing page still renders without layout breakage; remaining content is centered and looks intentional (e.g., the grid is adjusted to a single card layout).",
-        "No unused imports or dead code remain in LandingPage.tsx (e.g., admin icon import/click handler removed if no longer used)."
+        "From route \"/\", clicking \"Access Customer Portal\" navigates to \"/customer/request\".",
+        "The intermediate customer sign-in screen is not shown during this flow."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Remove the Customer Sign In page from the app routing and ensure any existing redirects that previously went to \"/customer/signin\" instead route users to the customer request page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Remove this page \nOnce click Access Customer Portal\nShould open add request page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The route \"/customer/signin\" is no longer registered in the router.",
+        "Any code paths that navigate to \"/customer/signin\" (e.g., customer session guard behavior) navigate to \"/customer/request\" instead.",
+        "Visiting \"/customer/signin\" in the browser no longer shows the Customer Sign In screen (it should result in Not Found or redirect to \"/customer/request\" per the updated routing)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Update the post-submit success screen in the Customer Request flow so that the primary return action does not send users to a page that requires the removed sign-in flow.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Should open add request page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "After submitting a request and seeing the success screen, the return button navigates to a valid page that does not depend on the removed customer sign-in route (e.g., \"/\" or \"/customer/request\").",
+        "No navigation from the customer request flow leads to \"/customer/signin\"."
       ]
     }
   ],
   "constraints": [
-    "Use English for any user-facing text.",
-    "Do not edit files under frontend/src/components/ui (compose existing components instead).",
-    "Backend is single-actor; no backend changes are required for this request."
+    "Do not edit files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
+    "Keep all user-facing text in English."
   ],
   "nonGoals": [
-    "Changing any admin/customer portal functionality beyond removing the landing-page entry points requested.",
-    "Modifying authentication/session logic or backend data structures."
+    "Changing backend Motoko logic or adding new backend endpoints.",
+    "Adding new authentication providers or login methods.",
+    "Redesigning the admin area or admin routes."
   ],
   "imageRequirements": {
     "required": [],

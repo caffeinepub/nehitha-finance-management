@@ -10,67 +10,14 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface Customer {
-  'pan' : string,
-  'referral' : string,
-  'name' : string,
-  'address' : string,
-  'mobile' : string,
-  'aadhar' : string,
-  'remarks' : string,
-}
-export interface EMI {
-  'balanceAfterPayment' : number,
-  'paid' : boolean,
-  'dueDate' : bigint,
-  'paidDate' : [] | [bigint],
-  'amount' : number,
-}
-export interface Loan {
-  'id' : string,
-  'status' : LoanStatus,
-  'principalRemaining' : number,
-  'totalInterest' : number,
-  'termMonths' : bigint,
-  'paidEmis' : bigint,
-  'interestRate' : number,
-  'emiAmount' : number,
-  'balanceDue' : number,
-  'customerId' : string,
-  'amount' : number,
-  'emiSchedule' : Array<EMI>,
-  'startDate' : bigint,
-}
-export type LoanStatus = { 'closed' : null } |
-  { 'active' : null } |
-  { 'delinquent' : null };
-export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
-  'addCustomer' : ActorMethod<
-    [string, string, string, string, string, string, string],
-    undefined
-  >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
-  'closeLoan' : ActorMethod<[string], undefined>,
-  'createLoan' : ActorMethod<[string, number, number, bigint], string>,
-  'getAllCustomers' : ActorMethod<[], Array<Customer>>,
-  'getBalanceDue' : ActorMethod<[string], number>,
-  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
-  'getCustomer' : ActorMethod<[string], [] | [Customer]>,
-  'getLoan' : ActorMethod<[string], [] | [Loan]>,
-  'getLoanStatus' : ActorMethod<[string], LoanStatus>,
-  'getLoansForCustomer' : ActorMethod<[string], Array<Loan>>,
-  'getRemainingEmis' : ActorMethod<[string], bigint>,
-  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
-  'recordPayment' : ActorMethod<[string, bigint], undefined>,
-  'requestCustomer' : ActorMethod<[string, string], string>,
-  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

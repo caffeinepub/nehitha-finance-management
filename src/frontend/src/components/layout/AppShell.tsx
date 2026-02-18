@@ -1,4 +1,5 @@
 import React from 'react';
+import { FRONTEND_VERSION } from '@/config/frontendVersion';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -24,6 +25,9 @@ export default function AppShell({ children }: AppShellProps) {
             >
               caffeine.ai
             </a>
+          </p>
+          <p className="text-xs text-muted-foreground/60 mt-1" data-version-label>
+            {FRONTEND_VERSION}
           </p>
         </div>
       </footer>

@@ -33,7 +33,7 @@ export class AppErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="min-h-screen bg-background flex items-center justify-center p-4" data-testid="app-error-boundary">
           <div className="max-w-md w-full space-y-6 text-center">
             <div className="flex justify-center">
               <div className="rounded-full bg-destructive/10 p-4">
@@ -45,7 +45,7 @@ export class AppErrorBoundary extends Component<Props, State> {
               <h1 className="text-3xl font-bold text-foreground">
                 Something went wrong
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground" data-error-marker="runtime-error-fallback">
                 We encountered an unexpected error. Please try returning to the home page.
               </p>
             </div>

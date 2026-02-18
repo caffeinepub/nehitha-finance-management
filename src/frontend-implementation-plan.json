@@ -1,22 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove landing page tagline and Admin Portal card",
+  "title": "Skip Customer Sign-In and Open Add Request from Landing",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Update LandingPage to remove the marketing tagline paragraph and the entire Admin Portal card, and re-center remaining content into a single-card layout.",
+      "summary": "Change the Landing page Customer Portal button to go directly to the customer Add Request form.",
       "acceptanceCriteria": [
-        "The landing page no longer renders the paragraph text \"Streamline your financial operations with our comprehensive management platform\".",
-        "The landing page no longer renders an \"Admin Portal\" card or an \"Access Admin Portal\" button.",
-        "The landing page still renders without layout breakage; remaining content is centered and looks intentional (e.g., the grid is adjusted to a single card layout).",
-        "No unused imports or dead code remain in LandingPage.tsx (e.g., admin icon import/click handler removed if no longer used)."
+        "From route \"/\", clicking \"Access Customer Portal\" navigates to \"/customer/request\".",
+        "The intermediate customer sign-in screen is not shown during this flow."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Remove the marketing tagline <p> block, delete the entire Admin Portal <Card> (including icon/title/description/button), and remove related dead code (e.g., Building2 import and handleAdminPortalClick). Adjust the container/grid classes so the remaining Customer Portal card is centered and uses a single-card layout (e.g., remove md:grid-cols-2 and reduce max width accordingly) while continuing to compose existing shadcn/ui Card/Button components without editing files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
+          "description": "Update the \"Access Customer Portal\" button navigation target from \"/customer/signin\" to \"/customer/request\"."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Remove the customer sign-in route and update any navigation/redirects that previously sent users to \"/customer/signin\".",
+      "acceptanceCriteria": [
+        "The route \"/customer/signin\" is no longer registered in the router.",
+        "Any code paths that navigate to \"/customer/signin\" (e.g., customer session guard behavior) navigate to \"/customer/request\" instead.",
+        "Visiting \"/customer/signin\" in the browser no longer shows the Customer Sign In screen (it should result in Not Found or redirect to \"/customer/request\" per the updated routing)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove the \"/customer/signin\" route registration from the router and remove the unused import of CustomerSignInPage so the sign-in screen cannot be reached via routing."
+        },
+        {
+          "path": "frontend/src/pages/customer/CustomerHomePage.tsx",
+          "operation": "modify",
+          "description": "Update the customer session guard redirect to navigate to \"/customer/request\" instead of \"/customer/signin\" when no customer session is active."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Update the customer request success return action so it does not navigate to pages dependent on the removed sign-in flow.",
+      "acceptanceCriteria": [
+        "After submitting a request and seeing the success screen, the return button navigates to a valid page that does not depend on the removed customer sign-in route (e.g., \"/\" or \"/customer/request\").",
+        "No navigation from the customer request flow leads to \"/customer/signin\"."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/customer/CustomerRequestPage.tsx",
+          "operation": "modify",
+          "description": "Change the success-screen primary action to navigate to a valid route not dependent on customer sign-in (e.g., \"/\"). Also update the form \"Cancel\" navigation to avoid \"/customer\" if it could trigger a sign-in redirect; ensure no navigation in this flow targets \"/customer/signin\"."
         }
       ]
     }
